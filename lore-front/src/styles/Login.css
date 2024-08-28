@@ -1,0 +1,138 @@
+.login {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Permite que el contenido esté centrado en relación con el contenedor */
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 0;
+}
+
+
+.login-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/background-image.png'); 
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  filter: brightness(0.4);
+}
+
+.login-content {
+  background-color: rgba(0, 0, 0, 0.73);
+  padding: 40px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+.login-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-input {
+  margin-bottom: 15px;
+  padding: 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+}
+
+.login-button {
+  padding: 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #2681e3;
+  color: white;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #2373c8;
+}
+
+.login-footer {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #b3b3b3;
+}
+
+.login-footer a {
+  color: #8dc0f8;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+.login-content {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 40px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  animation: fadeInScale 0.7s ease-in-out;
+}
+
+.login-input,
+.login-button,
+.login-footer a {
+  margin-bottom: 15px;
+  padding: 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  opacity: 0;
+  animation: fadeInScale 0.7s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.login-footer a {
+  color: #8dc0f8;
+  text-decoration: none;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.errorMessage {
+  background-color: #e87c03;
+  color: white; 
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0; /* Inicialmente oculto */
+  transition: opacity 0.5s ease-in-out; /* Transición suave */
+}
+
+.errorMessage.show {
+  opacity: 1; /* Visible cuando se añade la clase 'show' */
+}
