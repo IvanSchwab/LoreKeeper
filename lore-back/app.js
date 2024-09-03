@@ -9,6 +9,13 @@ require("dotenv").config();
 app.use(express.json());
 app.use(cors());
 
+async function main(){
+  await mongoose.connect(process.env.DB_CONNECTION_STRING);
+  console.log("Conectado a MongoDB")
+}
+
+main().catch(console.error)
+
 app.use("/api/signup", require("./routes/signup"));
 app.use("/api/signout", require("./routes/signout"));
 app.use("/api/login", require("./routes/login"));

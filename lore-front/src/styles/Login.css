@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative; /* Permite que el contenido esté centrado en relación con el contenedor */
+  position: relative; 
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 0;
 }
@@ -129,10 +129,10 @@
   margin-bottom: 20px;
   font-size: 1rem;
   text-align: center;
-  opacity: 0; /* Inicialmente oculto */
-  transition: opacity 0.5s ease-in-out; /* Transición suave */
+  opacity: 0; 
+  transition: opacity 0.5s ease-in-out;
 }
 
 .errorMessage.show {
-  opacity: 1; /* Visible cuando se añade la clase 'show' */
+  opacity: 1; 
 }
