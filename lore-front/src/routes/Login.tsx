@@ -1,53 +1,60 @@
 import { Navigate, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { AuthResponse, AuthResponseError } from "../types/types";
 import { useAuth } from "../auth/AuthProvider";
 import { API_URL } from "../auth/AuthConstants";
+import { useState } from "react";
 import "../styles/Login.css";
 
 export default function Login() {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorResponse, setErrorResponse] = useState<string>("");
+  const [errorResponse, setErrorResponse] = useState("");
 
   const auth = useAuth();
-  const navigate = useNavigate();
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const navigate = useNavigate(); 
+  
+  function handleChange(e: React.ChangeEvent) {
+    const { name, value } = e.target as HTMLInputElement;
+    if (name === "mail") {
+      setMail(value);
+    }
+    if (name === "password") {
+      setPassword(value);
+    }
+  }
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
+    // auth.setIsAuthenticated(true);
     try {
       const response = await fetch(`${API_URL}/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          mail,
-          password,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mail, password }),
       });
-
-      console.log("Response status:", response.status);
-      const json = await response.json();
-      console.log("Response JSON:", json);
-
       if (response.ok) {
-        console.log("Usuario autenticado correctamente");
-        setErrorResponse("");
-        navigate("/");
+        const json = (await response.json()) as AuthResponse;
+        console.log(json);
+
+        if (json.body.accessToken && json.body.refreshToken) {
+          auth.saveUser(json);
+        } else{
+          console.log((json))
+          console.log("Usuario no guardado")
+        }
+        navigate("/LoreKeeper"); 
       } else {
-        console.log("Ocurrió un error");
-        setErrorResponse(json.body.error || "Error desconocido");
+        const json = (await response.json()) as AuthResponseError;
+
+        setErrorResponse(json.body.error);
       }
     } catch (error) {
-      console.error("Error al enviar la solicitud:", error);
-      setErrorResponse("Error de red o servidor");
+      console.log(error);
     }
   }
-
   if (auth.isAuthenticated) {
-    return <Navigate to="/LoreKeeper"></Navigate>;
+    return <Navigate to="/dashboard" />;
   }
+  
   return (
     <div className="login">
       <div className="login-background"></div>
@@ -79,7 +86,7 @@ export default function Login() {
         </form>
         <div className="login-footer">
           <p>
-            ¿Primera vez en Lore Keeper? <a href="/signup">Suscríbete ahora</a>.
+            ¿Primera vez en Lore Keeper?<a href="/signup">Suscríbete ahora</a>.
           </p>
           <p>
             Esta página está protegida por Google reCAPTCHA para asegurarnos de

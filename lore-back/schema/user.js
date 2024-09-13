@@ -50,6 +50,8 @@ UserSchema.methods.createRefreshToken = async function () {
   const refreshToken = generateRefreshToken(getUserInfo(this));
   try {
     await new Token({ token: refreshToken }).save();
+
+    return refreshToken;
   } catch (error) {
     console.log(error);
   }

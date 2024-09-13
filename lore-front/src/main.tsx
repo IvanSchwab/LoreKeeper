@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/LoreKeeper",
+    path: "/",
     element: <ProtectedRoute />,
     children: [
       {
